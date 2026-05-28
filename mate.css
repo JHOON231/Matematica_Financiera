@@ -397,3 +397,69 @@ h1{
         width:260px;
     }
 }
+
+/* ===== INPUTS ===== */
+
+input{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:14px;
+
+    font-size:1rem;
+
+    color:white;
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    backdrop-filter:blur(10px);
+
+    margin-top:10px;
+}
+
+/* ===== BOTONES ===== */
+
+button{
+
+    padding:14px 20px;
+
+    border:none;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    margin-right:10px;
+
+    margin-top:10px;
+
+    color:white;
+
+    font-weight:bold;
+
+    background:linear-gradient(
+        135deg,
+        #00f5ff,
+        #8b5cf6
+    );
+
+    transition:0.3s;
+}
+
+button:hover{
+
+    transform:
+        translateY(-3px)
+        scale(1.05);
+
+    box-shadow:
+        0 0 20px rgba(0,255,255,0.5);
+}

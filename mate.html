@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matemática Aplicada</title>
+    <title>Matemática Financiera</title>
 
     <link rel="stylesheet" href="mate.css">
 </head>
@@ -12,35 +12,35 @@
 <body>
 
     <!-- BOTÓN MENU -->
-    <button class="btn-menu" onclick="abrirMenu()">
-        ☰
-    </button>
+    <button class="btn-menu" onclick="abrirMenu()">☰</button>
 
     <!-- SIDEBAR -->
     <div id="sidebar" class="sidebar">
 
         <!-- BOTÓN CERRAR -->
-        <button class="cerrar" onclick="cerrarMenu()">
-            ✖️
-        </button>
+        <button class="cerrar" onclick="cerrarMenu()">✖️</button>
 
         <!-- OPCIONES -->
-        <a href="#">Inicio</a>
-        <a href="#">Servicios</a>
-        <a href="#">Productos</a>
-        <a href="#">Contacto</a>
-
+        <a href="mate.html">Inicio</a>
+        <a href="index.html">Tabla Dinámica</a>
     </div>
 
     <!-- CONTENIDO -->
-    <h1>Matemática Aplicada
-    </h1>
+    <h1>Matemática Financiera</h1>
 
-    <div class="comando">
+    <section id="inicio">
+        <div class="comando" id="inicio">
         <p>
-            Qué te gustaría aprender hoy?
+             Calcula intereses y practica matemática financiera.
         </p>
-    </div>
+        <input type="text"id="txtNota"placeholder="Ingrese un valor">
+
+        <button onclick="probarAgregados()">Agregar</button>
+        <button onclick="mostrarNotas()">Mostrar Datos</button>
+        <button onclick="alert(calcularPromedio())">Promedio</button>
+        <div id="divTabla"></div>
+        </div>
+    </section>
 
     <script src="mate.js"></script>
 

@@ -40,15 +40,16 @@ generarTabla = function(){
 
 mostrarNotas = function(){
     let cmpTabla = document.getElementById("divTabla");
-    let contenidoTabla = "<table><tr><td>NOTA</th></td>";
+    let contenidoTabla = "<table border='1'>";
+    contenidoTabla += "<tr><th>NOTA</th></tr>";
     let miNota;
-    for (let i=0; i<notas.length; i++){
-        miNota = notas[i];
-        contenidoTabla += "<tr><td>";
-        contenidoTabla += miNota;
-        contenidoTabla += "</tr></td>"
+    for (let i = 0; i < notas.length; i++){
+    miNota = notas[i];
+     contenidoTabla += "<tr>";
+     contenidoTabla += "<td>" + miNota + "</td>";
+    contenidoTabla += "</tr>";
     }
-    contenidoTabla += "</table>"
+    contenidoTabla += "</table>";
     cmpTabla.innerHTML = contenidoTabla;
 }
 
