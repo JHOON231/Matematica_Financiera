@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="arreglos.css"/>
+    </head>
+    <body>
+        <input type="text" id="txtNota"/>
+        <input type="button" value="Agregar Nota" onclick="probarAgregados()"/>
+        <input type="button" value="Prueba 1" onclick="Eleagregarmentos()">
+        <input type="button" value="Imprimir" onclick="recuperarArreglo()">
+        <input type="button" value="Promedio" onclick="console.log(calcularPromedio())">
+        <table>
+            <tr>
+                <th>CABECERA1</th>
+                <th>CABECERA2</th>
+                <th>CABECERA3</th>
+            </tr>
+            <tr>
+                <th>celda1</th>
+                <th>celda2</th>
+                <th>celda3</th>
+            </tr>
+            <tr>
+                <th>celda4</th>
+                <th>celda5</th>
+                <th>celda6</th>
+            </tr>
+            <tr>
+                <th>celda7</th>
+                <th>celda8</th>
+                <th>celda9</th>
+            </tr>
+        </table> 
+        <input type="button" value="Generar Tabla" onclick="generarTabla()">
+        <input type="button" value="Mostrar Notas" onclick="mostrarNotas()">
+        <div id="divTabla">
+            <table>
+                <tr><td>UNO</td></tr>
+                <tr><td>DOS</td></tr>
+            </table>
+        </div>
+        
+        <script src="ejercicio1.js"></script>
+        <script src="utilitarios.js"></script>
+    </body>
+</html>

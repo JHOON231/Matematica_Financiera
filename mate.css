@@ -1,0 +1,399 @@
+/* ===== IMPORTACIÓN DE FUENTE ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* ===== RESET GENERAL ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ===== BODY ===== */
+body{
+
+    font-family:'Poppins', sans-serif;
+
+    min-height:100vh;
+
+    padding:40px;
+
+    overflow-x:hidden;
+
+    background:
+        radial-gradient(circle at top left, #00c9ff 0%, transparent 25%),
+        radial-gradient(circle at bottom right, #92fe9d 0%, transparent 25%),
+        linear-gradient(135deg, #0f172a, #111827, #1e293b);
+
+    color:white;
+
+    animation:fondoAnimado 12s ease infinite;
+}
+
+/* ===== PARTÍCULAS ===== */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background-image:
+        radial-gradient(
+            rgba(255,255,255,0.08) 1px,
+            transparent 1px
+        );
+
+    background-size:40px 40px;
+
+    pointer-events:none;
+
+    animation:moverParticulas 25s linear infinite;
+}
+
+/* ===== TITULO ===== */
+
+h1{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+    font-size:4rem;
+
+    background:linear-gradient(
+        90deg,
+        #00f5ff,
+        #00ff9d,
+        #8b5cf6,
+        #ff00ff
+    );
+
+    background-size:300%;
+    
+    background-clip:text;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    animation:brilloTexto 6s linear infinite;
+}
+
+/* ===== BOTÓN MENU ===== */
+
+.btn-menu{
+
+    position:fixed;
+
+    top:20px;
+    left:20px;
+
+    z-index:1001;
+
+    width:60px;
+    height:60px;
+
+    border:none;
+    border-radius:16px;
+
+    cursor:pointer;
+
+    font-size:1.7rem;
+
+    color:white;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(12px);
+
+    border:
+        1px solid rgba(255,255,255,0.15);
+
+    transition:0.3s;
+
+    box-shadow:
+        0 0 15px rgba(0,255,255,0.2);
+}
+
+.btn-menu:hover{
+
+    transform:
+        scale(1.08)
+        rotate(5deg);
+
+    box-shadow:
+        0 0 20px rgba(0,255,255,0.7),
+        0 0 40px rgba(139,92,246,0.5);
+}
+
+/* ===== SIDEBAR ===== */
+
+.sidebar{
+
+    position:fixed;
+
+    top:0;
+    left:-320px;
+
+    width:320px;
+    height:100vh;
+
+    z-index:1000;
+
+    padding:90px 25px;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(16px);
+
+    border-right:
+        1px solid rgba(255,255,255,0.15);
+
+    transition:0.4s ease;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 0 30px rgba(0,0,0,0.4);
+}
+
+/* ===== SIDEBAR ABIERTO ===== */
+
+.sidebar.activo{
+    left:0;
+}
+
+/* ===== BORDE RGB ===== */
+
+.sidebar::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-2px;
+
+    background:linear-gradient(
+        45deg,
+        #00f5ff,
+        #00ff9d,
+        #8b5cf6,
+        #ff00ff,
+        #00f5ff
+    );
+
+    background-size:400%;
+
+    filter:blur(10px);
+
+    opacity:0.6;
+
+    z-index:-1;
+
+    animation:borderRGB 8s linear infinite;
+}
+
+/* ===== BOTÓN CERRAR ===== */
+
+.cerrar{
+
+    position:absolute;
+
+    top:20px;
+    right:20px;
+
+    width:45px;
+    height:45px;
+
+    border:none;
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:linear-gradient(
+        135deg,
+        #ff0055,
+        #ff00ff
+    );
+
+    transition:0.3s;
+}
+
+.cerrar:hover{
+
+    transform:
+        rotate(90deg)
+        scale(1.1);
+
+    box-shadow:
+        0 0 20px rgba(255,0,120,0.8);
+}
+
+/* ===== LINKS ===== */
+
+.sidebar a{
+
+    display:block;
+
+    text-decoration:none;
+
+    color:white;
+
+    margin-bottom:18px;
+
+    padding:18px 20px;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,0.05);
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    transition:0.3s;
+}
+
+.sidebar a:hover{
+
+    transform:
+        translateX(10px)
+        scale(1.03);
+
+    background:linear-gradient(
+        135deg,
+        rgba(0,245,255,0.2),
+        rgba(139,92,246,0.2)
+    );
+
+    box-shadow:
+        0 0 20px rgba(0,255,255,0.3);
+}
+
+/* ===== TARJETAS ===== */
+
+.comando{
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(14px);
+
+    border:
+        1px solid rgba(255,255,255,0.15);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    transition:0.4s;
+}
+
+.comando:hover{
+
+    transform:
+        translateY(-10px)
+        scale(1.02);
+
+    box-shadow:
+        0 15px 40px rgba(0,255,255,0.25),
+        0 0 25px rgba(255,0,255,0.2);
+}
+
+/* ===== TEXTO ===== */
+
+.comando p{
+
+    line-height:1.8;
+
+    color:#e2e8f0;
+}
+
+/* ===== SCROLL ===== */
+
+::-webkit-scrollbar{
+    width:12px;
+}
+
+::-webkit-scrollbar-track{
+    background:#0f172a;
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:linear-gradient(
+        #00f5ff,
+        #8b5cf6
+    );
+
+    border-radius:10px;
+}
+
+/* ===== ANIMACIONES ===== */
+
+@keyframes borderRGB{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+}
+
+@keyframes brilloTexto{
+
+    0%{
+        background-position:0%;
+    }
+
+    100%{
+        background-position:300%;
+    }
+}
+
+@keyframes moverParticulas{
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(40px);
+    }
+}
+
+@keyframes fondoAnimado{
+
+    0%{
+        filter:hue-rotate(0deg);
+    }
+
+    100%{
+        filter:hue-rotate(25deg);
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media(max-width:768px){
+
+    body{
+        padding:20px;
+    }
+
+    h1{
+        font-size:2.5rem;
+    }
+
+    .sidebar{
+        width:260px;
+    }
+}
