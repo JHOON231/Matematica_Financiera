@@ -1,0 +1,130 @@
+/* ===== RESET GENERAL ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ===== BODY ===== */
+
+body{
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    min-height:100vh;
+
+    padding:40px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f172a,
+            #111827,
+            #1e293b
+        );
+
+    color:white;
+}
+
+/* ===== TITULO ===== */
+
+h1{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+    font-size:3rem;
+
+    color:#00f5ff;
+}
+
+/* ===== CONTENEDOR ===== */
+
+.contenedor{
+
+    width:90%;
+
+    margin:auto;
+}
+
+/* ===== TARJETAS DE PREGUNTAS ===== */
+
+.pregunta{
+
+    background:rgba(255,255,255,0.08);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    transition:0.3s;
+}
+
+/* ===== EFECTO HOVER ===== */
+
+.pregunta:hover{
+
+    transform:scale(1.02);
+
+    box-shadow:
+        0 0 20px rgba(0,255,255,0.3);
+}
+
+/* ===== TITULO DE PREGUNTAS ===== */
+
+.pregunta h2{
+
+    margin-bottom:15px;
+
+    color:#00ff9d;
+}
+
+/* ===== LITERALES ===== */
+
+.pregunta p{
+
+    margin-bottom:10px;
+
+    padding:10px;
+
+    border-radius:10px;
+
+    background:rgba(255,255,255,0.05);
+}
+
+/* ===== BOTONES ===== */
+
+button{
+
+    width:100%;
+
+    padding:15px;
+
+    margin-top:10px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:1rem;
+
+    background:rgba(255,255,255,0.08);
+
+    transition:0.3s;
+}
+
+button:hover{
+
+    transform:scale(1.02);
+
+    background:rgba(255,255,255,0.15);
+}
