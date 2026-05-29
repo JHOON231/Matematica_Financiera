@@ -138,11 +138,11 @@ h1{
     width:320px;
     height:100vh;
 
-    z-index:1000;
-
     padding:90px 25px;
 
-    background:rgba(255,255,255,0.08);
+    overflow-y:auto;
+
+    background:rgba(35, 1, 131, 0.85);
 
     backdrop-filter:blur(16px);
 
@@ -151,10 +151,7 @@ h1{
 
     transition:0.4s ease;
 
-    overflow:hidden;
-
-    box-shadow:
-        0 0 30px rgba(0,0,0,0.4);
+    z-index:1000;
 }
 
 /* ===== SIDEBAR ABIERTO ===== */
@@ -163,35 +160,7 @@ h1{
     left:0;
 }
 
-/* ===== BORDE RGB ===== */
 
-.sidebar::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:-2px;
-
-    background:linear-gradient(
-        45deg,
-        #00f5ff,
-        #00ff9d,
-        #8b5cf6,
-        #ff00ff,
-        #00f5ff
-    );
-
-    background-size:400%;
-
-    filter:blur(10px);
-
-    opacity:0.6;
-
-    z-index:-1;
-
-    animation:borderRGB 8s linear infinite;
-}
 
 /* ===== BOTÓN CERRAR ===== */
 

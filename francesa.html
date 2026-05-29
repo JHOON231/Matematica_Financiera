@@ -1,17 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matemática Financiera</title>
-
-    <link rel="stylesheet" href="mate.css">
-</head>
-
-<body>
-
-    <!-- BOTÓN MENU -->
+<html>
+    <head>
+        <link rel="stylesheet" href="mate.css">
+    </head>
+    <body>
     <button class="btn-menu" onclick="abrirMenu()">☰</button>
 
     <!-- SIDEBAR -->
@@ -36,25 +28,21 @@
 
 
     </div>
+    <h1>Tabla de Amortización Francesa </h1>
+    <div class="comando" id="inicio">
+    <p> El sistema de amortización francés para créditos establece que 
+        el monto de las cuotas mensuales es fijo durante todo el período definido. 
+        Esto quiere decir que el deudor pagará siempre la misma cantidad de dinero en cada cuota, 
+        hasta la cancelación final de la deuda. 
+    </p>
 
-    <!-- CONTENIDO -->
-    <h1>Matemática Financiera</h1>
-
-    <section id="inicio">
-        <div class="comando" id="inicio">
-        <p>
-            Calcula intereses y practica matemática financiera.
-        </p>
-        <input type="text"id="txtNota"placeholder="Ingrese un valor">
-
-        <button onclick="probarAgregados()">Agregar</button>
-        <button onclick="mostrarNotas()">Mostrar Datos</button>
-        <button onclick="alert(calcularPromedio())">Promedio</button>
-        <div id="divTabla"></div>
-        </div>
-    </section>
-
+    
+    <p>
+        <img src="francesa.webp"  width="300" height="200">
+    </p>
+    </div>
     <script src="mate.js"></script>
 
-</body>
+    </body>
+
 </html>

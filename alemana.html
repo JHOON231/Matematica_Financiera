@@ -1,17 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matemática Financiera</title>
-
-    <link rel="stylesheet" href="mate.css">
-</head>
-
-<body>
-
-    <!-- BOTÓN MENU -->
+<html>
+    <head>
+        <link rel="stylesheet" href="mate.css">
+    </head>
+    <body>
     <button class="btn-menu" onclick="abrirMenu()">☰</button>
 
     <!-- SIDEBAR -->
@@ -36,25 +28,22 @@
 
 
     </div>
+    <h1>Tabla de Amortización Alemana </h1>
+    <div class="comando" id="inicio">
+    <p> A diferencia del francés, el sistema de amortización alemán 
+        establece que el valor de las cuotas es variable y decreciente 
+        cada mes y hasta la cancelación total de la deuda. Lo que quiere 
+        decir que la primera cuota será la más alta de todas 
+        y la siguiente siempre será más baja que la anterior.
+    </p>
 
-    <!-- CONTENIDO -->
-    <h1>Matemática Financiera</h1>
-
-    <section id="inicio">
-        <div class="comando" id="inicio">
-        <p>
-            Calcula intereses y practica matemática financiera.
-        </p>
-        <input type="text"id="txtNota"placeholder="Ingrese un valor">
-
-        <button onclick="probarAgregados()">Agregar</button>
-        <button onclick="mostrarNotas()">Mostrar Datos</button>
-        <button onclick="alert(calcularPromedio())">Promedio</button>
-        <div id="divTabla"></div>
-        </div>
-    </section>
-
+    
+    <p>
+        <img src="alemana.webp"  width="300" height="200">
+    </p>
+    </div>
     <script src="mate.js"></script>
 
-</body>
+    </body>
+
 </html>

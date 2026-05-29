@@ -1,17 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matemática Financiera</title>
-
-    <link rel="stylesheet" href="mate.css">
-</head>
-
-<body>
-
-    <!-- BOTÓN MENU -->
+<html>
+    <head>
+        <link rel="stylesheet" href="mate.css">
+    </head>
+    <body>
     <button class="btn-menu" onclick="abrirMenu()">☰</button>
 
     <!-- SIDEBAR -->
@@ -36,25 +28,19 @@
 
 
     </div>
-
-    <!-- CONTENIDO -->
-    <h1>Matemática Financiera</h1>
-
-    <section id="inicio">
-        <div class="comando" id="inicio">
-        <p>
-            Calcula intereses y practica matemática financiera.
-        </p>
-        <input type="text"id="txtNota"placeholder="Ingrese un valor">
-
-        <button onclick="probarAgregados()">Agregar</button>
-        <button onclick="mostrarNotas()">Mostrar Datos</button>
-        <button onclick="alert(calcularPromedio())">Promedio</button>
-        <div id="divTabla"></div>
-        </div>
-    </section>
-
+    <h1>Valor Presente</h1>
+    <div class="comando" id="inicio">
+    <p>Es el cálculo que determina cuánto vale hoy una cantidad de dinero 
+        que recibirás o pagarás en el futuro. Sirve para ajustar el dinero al 
+        momento actual descontando una tasa de interés o rentabilidad, 
+        permitiendo comparar el dinero en diferentes momentos.</p>
+    
+    <p>
+        <img src="valorPresente.jpg"  width="300" height="200">
+    </p>
+    </div>
     <script src="mate.js"></script>
 
-</body>
+    </body>
+
 </html>
