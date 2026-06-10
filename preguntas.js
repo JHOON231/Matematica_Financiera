@@ -3,7 +3,7 @@ function correcta(boton){
     boton.innerHTML += " ✅";
 }
 
-function incorrecta(boton){
+function incorrecta(boton,idRespuesta){
     boton.style.background = "red";
     boton.innerHTML += " ❌";
 }

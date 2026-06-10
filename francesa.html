@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="mate.css">
-    </head>
-    <body>
+<head>
+    <link rel="stylesheet" href="mate.css">
+</head>
+<body>
     <button class="btn-menu" onclick="abrirMenu()">☰</button>
 
     <!-- SIDEBAR -->
@@ -23,26 +23,26 @@
         <a href="cuotas.html">Cuotas y pagos periódicos</a>
         <a href="francesa.html">Tabla de Amortización Francesa</a>
         <a href="alemana.html">Tabla de Amortización Alemana</a>
-
-
-
-
     </div>
+    
     <h1>Tabla de Amortización Francesa </h1>
-    <div class="comando" id="inicio">
+<div class="comando" id="inicio">
     <p> El sistema de amortización francés para créditos establece que 
         el monto de las cuotas mensuales es fijo durante todo el período definido. 
         Esto quiere decir que el deudor pagará siempre la misma cantidad de dinero en cada cuota, 
         hasta la cancelación final de la deuda. 
     </p>
 
+    <h2>Calculadora de Amortización Francesa</h2>
+    <input type="text" id="txtCapital" placeholder="Ingrese el capital">
+    <input type="text" id="txtTasa" placeholder="Ingrese la tasa (%)">
+    <input type="text" id="txtPeriodos" placeholder="Ingrese el número de períodos">
+    <button onclick="calcularFrancesa()"> Calcular</button>
+    <div id="divTabla"></div>
     
-    <p>
-        <img src="francesa.webp"  width="300" height="200">
-    </p>
-    </div>
-    <script src="mate.js"></script>
-
-    </body>
-
+    <p><img src="francesa.webp"  width="300" height="200"></p>
+</div>
+        <script src="mate.js"></script>
+        <script src="francesa.js"></script>
+</body>
 </html>
