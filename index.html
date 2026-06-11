@@ -1,47 +1,73 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="arreglos.css"/>
-    </head>
-    <body>
-        <input type="text" id="txtNota"/>
-        <input type="button" value="Agregar Nota" onclick="probarAgregados()"/>
-        <input type="button" value="Prueba" onclick="probarAgregados()"/>
-        <input type="button" value="Prueba 1" onclick="Eleagregarmentos()">
-        <input type="button" value="Imprimir" onclick="recuperarArreglo()">
-        <input type="button" value="Promedio" onclick="console.log(calcularPromedio())">
-        <table>
-            <tr>
-                <th>CABECERA1</th>
-                <th>CABECERA2</th>
-                <th>CABECERA3</th>
-            </tr>
-            <tr>
-                <th>celda1</th>
-                <th>celda2</th>
-                <th>celda3</th>
-            </tr>
-            <tr>
-                <th>celda4</th>
-                <th>celda5</th>
-                <th>celda6</th>
-            </tr>
-            <tr>
-                <th>celda7</th>
-                <th>celda8</th>
-                <th>celda9</th>
-            </tr>
-        </table> 
-        <input type="button" value="Generar Tabla" onclick="generarTabla()">
-        <input type="button" value="Mostrar Notas" onclick="mostrarNotas()">
-        <div id="divTabla">
-            <table>
-                <tr><td>UNO</td></tr>
-                <tr><td>DOS</td></tr>
-            </table>
-        </div>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matemática Financiera</title>
+
+    <link rel="stylesheet" href="mate.css">
+</head>
+
+<body>
+
+    <!-- BOTÓN MENU -->
+    <button class="btn-menu" onclick="abrirMenu()">☰</button>
+
+    <!-- SIDEBAR -->
+    <div id="sidebar" class="sidebar">
+
+        <!-- BOTÓN CERRAR -->
+        <button class="cerrar" onclick="cerrarMenu()">✖️</button>
+
+        <!-- OPCIONES -->
+        <a href="index.html">inicio</a>
+        <a href="preguntas.html">Preguntas</a>
+        <a href="valorPresente.html">Valor Presente</a>
+        <a href="valorFuturo.html" >Valor Futuro</a>
+        <a href="interesSimple.html">Interés Simple</a>
+        <a href="interesCompuesto.html">Interés Compuesto</a>
+        <a href="cuotas.html">Cuotas y pagos periódicos</a>
+        <a href="francesa.html">Tabla de Amortización Francesa</a>
+        <a href="alemana.html">Tabla de Amortización Alemana</a>
+
+
+    </div>
+
+    <!-- CONTENIDO -->
+    <h1>Matemática Financiera</h1>
+
+    <section id="inicio">
+        <div class="comando" id="inicio">
+        <p>
+            Calcula intereses y practica matemática financiera.
+        </p>
+        <p>
+        <input type="text"id="txtCapital"placeholder="Ingrese el capital">
+        <input type="text"id="txtFuturo"placeholder="Ingrese el valor Futuro">
+        <input type="text"id="txtTasa"placeholder="Ingrese la tasa (%)">
+        <input type="text"id="txtPeriodos"placeholder="Ingrese el número de períodos">
+        <button onclick="calcularValorPresente()">Calcular Valor Presente</button>
+        <button onclick="calcularValorFuturo()">Calcular Valor Futuro</button>
+        <button onclick="calcularInteresSimple()">Calcular Interés Simple</button>
+        <button onclick="calcularInteresCompuesto()">Calcular Interés Compuesto</button>
+        <button onclick="calcularAlemana()">Calcular Tabla de Interés Alemana</button>
+        <button onclick="calcularFrancesa()">Calcular Tabla de Interés Francesa</button>
         
-        <script src="ejercicio1.js"></script>
-        <script src="utilitarios.js"></script>
-    </body>
+
+
+        <div id="divTabla"></div>
+        </div>
+        <script src="mate.js"></script>
+        <script src="alemana.js"></script>
+        <script src="francesa.js"></script>
+        </p>
+
+
+        </div>
+    </section>
+
+    <script src="mate.js"></script>
+
+</body>
 </html>

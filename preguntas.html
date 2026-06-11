@@ -10,10 +10,33 @@
     <title>Preguntas Matemática Financiera</title>
     <!-- CONEXIÓN CON CSS -->
     <link rel="stylesheet" href="preguntas.css">
+
 </head>
 
 <body>
+    <button class="btn-menu" onclick="abrirMenu()">☰</button>
     <!-- TÍTULO PRINCIPAL -->
+    <div id="sidebar" class="sidebar">
+
+        <!-- BOTÓN CERRAR -->
+        <button class="cerrar" onclick="cerrarMenu()">✖️</button>
+
+        <!-- OPCIONES -->
+        <a href="index.html">inicio</a>
+        <a href="preguntas.html">Preguntas</a>
+        <a href="valorPresente.html">Valor Presente</a>
+        <a href="valorFuturo.html" >Valor Futuro</a>
+        <a href="interesSimple.html">Interés Simple</a>
+        <a href="interesCompuesto.html">Interés Compuesto</a>
+        <a href="cuotas.html">Cuotas y pagos periódicos</a>
+        <a href="francesa.html">Tabla de Amortización Francesa</a>
+        <a href="alemana.html">Tabla de Amortización Alemana</a>
+
+
+
+
+    </div>
+
     <h1>Preguntas de Matemática Financiera</h1>
 
     <!-- CONTENEDOR GENERAL -->
@@ -70,6 +93,8 @@
 
     </div>
     <script src="preguntas.js"></script>
+    <script src="mate.js"></script>
+
 </body>
 </html>
 
