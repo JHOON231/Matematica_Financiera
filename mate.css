@@ -462,3 +462,27 @@ tr:hover{
     font-weight:bold;
     text-align:center;
 }
+
+section {
+      display: none;
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+      margin-top: 20px;
+      border-radius: 8px;
+}
+
+section.activa{
+    display: block;
+}
+
+.contenedor-tabla{
+
+    width:100%;
+
+    overflow-x:auto;
+}
+
+.cuotaPagada{
+    background-color: #b8f5b8;
+}

@@ -1,0 +1,212 @@
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title>Sistema de Créditos</title>
+    <link rel="stylesheet" href="mate.css">
+
+  </head>
+  <body>
+
+    <header>
+        <h1>Simulador</h1>
+    </header>
+
+        <!-- BOTÓN MENU -->
+    <button class="btn-menu" onclick="abrirMenu()">☰</button>
+
+    <!-- SIDEBAR -->
+    <div id="sidebar" class="sidebar">
+
+        <!-- BOTÓN CERRAR -->
+        <button class="cerrar" onclick="cerrarMenu()">✖️</button>
+
+        <!-- OPCIONES -->
+        <a href="index.html">Inicio</a>
+        <a href="simulador.html">Simulador</a>
+        <a href="preguntas.html">Preguntas</a>
+        <a href="valorPresente.html">Valor Presente</a>
+        <a href="valorFuturo.html" >Valor Futuro</a>
+        <a href="interesSimple.html">Interés Simple</a>
+        <a href="interesCompuesto.html">Interés Compuesto</a>
+        <a href="cuotas.html">Cuotas y pagos periódicos</a>
+        <a href="francesa.html">Tabla de Amortización Francesa</a>
+        <a href="alemana.html">Tabla de Amortización Alemana</a>
+
+
+    </div>
+
+    <p id="fechaSistema"></p>
+
+    <input type="date" id="nuevaFecha">
+
+    <button onclick="cambiarFechaSistema()">
+        Cambiar fecha
+    </button>
+
+    <nav id="botones">
+        <button onclick="mostrarSeccion('clientes')">Clientes</button>
+        <button onclick="mostrarSeccion('credito')">Solicitar Crédito</button>
+        <button onclick="mostrarSeccion('historial')">Historial Créditos</button>
+    </nav>
+
+    
+
+    <section id="clientes">
+        <h2>Registro de Clientes</h2>
+        <h3>Ingrese los datos solicitados</h3>
+
+        <div class="input-group">
+            <input type="text" placeholder="Cédula" id="txtCedula">
+            <input type="text" placeholder="Nombre" id="txtNombre">
+            <input type="text" placeholder="Apellido" id="txtApellido">
+            <input type="number" placeholder="Ingresos" id="ingresos">
+            <input type="number" placeholder="Egresos" id="egresos">
+        </div>
+
+        <br>
+        <button onclick="guardarCliente();">Guardar cliente</button>
+        <button onclick="limpiar();">Limpiar</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Cédula</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Ingresos</th>
+                    <th>Egresos</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tablaClientes">
+                <tr>
+                    <td>1712345678</td>
+                    <td>Juan</td>
+                    <td>Pérez</td>
+                    <td>1200</td>
+                    <td>500</td>
+                    <td>
+                        <button onclick="actualizar(this);">Actualizar</button>
+                        <button class="danger" onclick="eliminarFila(this)">Eliminar</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1723456789</td>
+                    <td>María</td>
+                    <td>Gómez</td>
+                    <td>1500</td>
+                    <td>600</td>
+                    <td>
+                        <button onclick="actualizar(this)">Actualizar</button>
+                        <button class="danger" onclick="eliminarFila(this)">Eliminar</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1734567890</td>
+                    <td>Carlos</td>
+                    <td>Ramírez</td>
+                    <td>900</td>
+                    <td>350</td>
+                    <td>
+                        <button onclick="actualizar(this)">Actualizar</button>
+                        <button class="danger" onclick="eliminarFila(this)">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="credito">
+        <h2>Solicitar Crédito</h2>
+
+        <div class="input-group">
+            <input type="text" id="buscarCedulaCredito" placeholder="Buscar por cédula">
+            <button onclick="buscarClienteCredito()">Buscar cliente</button>
+        </div>
+
+        <div id="datosClienteCredito" class="card"></div>
+
+        <div class="input-group">
+            <input type="number" id="montoCredito" placeholder="Monto solicitado">
+            <input type="number" id="plazoCredito" placeholder="Meses Plazo">
+            <input type="number" id="tasaInteres" placeholder="Tasa de Interes">
+        </div>
+        <label>Tipo de amortización:</label>
+
+        <select id="tipoAmortizacion">
+            <option value="francesa">Francesa</option>
+            <option value="alemana">Alemana</option>
+        </select>
+
+
+        <br>
+
+        <button onclick="calcularCredito()">Calcular crédito</button>
+        <button onclick="limpiarCredito()">Limpiar Solicitud</button>
+
+        <div id="resultadoCredito" class="card">
+            <p id="capacidad">Capacidad de pago:</p>
+            <p id="total">Total a pagar:</p>
+            <p id="cuota">Primera Cuota:</p>
+        </div>
+
+        <div>
+            <button id="btnSolicitarCredito" onclick="aprobar()">Solicitar crédito</button>
+            <p id="resultado">Resultado del crédito:</p>
+        </div>
+        <div id="botonesAsignar"></div>
+    </section>
+
+    <section id="historial">
+
+    <h2>Créditos Registrados</h2>
+
+    <div class="input-group">
+        <input type="text" id="buscarCedulaListado" placeholder="Buscar por cédula">
+        <button onclick="buscarCreditosCliente()">Buscar</button>
+        <button onclick="pintarCreditos(creditos)">Ver todos</button>
+    </div>
+
+    <div class="contenedor-tabla">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Cédula</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Monto</th>
+                    <th>Tasa</th>
+                    <th>Tipo</th>
+                    <th>Plazo</th>
+                    <th>Cuota</th>
+                    <th>Fecha</th>
+                    <th>Cuotas Pagadas</th>
+                    <th>Cuotas Pendientes</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+
+            <tbody id="tablaCreditos">
+            </tbody>
+        </table>
+
+    </div>
+
+    <div id="detalleAmortizacion"></div>
+
+    </section>
+    <section id="detalleCredito">
+    </section>
+
+    <script src="simulador_completo.js"></script>
+
+    <script src="utilitarios.js"></script>
+
+    <script src="funciones.js"></script>
+
+
+
+</body>
+</html>
