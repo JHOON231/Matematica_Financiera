@@ -39,23 +39,26 @@
 
     <section id="inicio">
         <div class="comando" id="inicio">
-        <p>
-            Calcula intereses y practica matemática financiera.
-        </p>
-        <p>
-        <input type="text"id="txtCapital"placeholder="Ingrese el capital">
-        <input type="text"id="txtFuturo"placeholder="Ingrese el valor Futuro">
-        <input type="text"id="txtTasa"placeholder="Ingrese la tasa (%)">
-        <input type="text"id="txtPeriodos"placeholder="Ingrese el número de períodos">
+            <h3>Calcula intereses y practica matemática financiera.</h3>
+
+        <p>Capital</p>
+        <input type="number"id="txtCapital">
+        <p>Valor Futuro</p>
+        <input type="number"id="txtFuturo">
+        <p>Tasa (%)</p>
+        <input type="number"id="txtTasa">
+        <p>Número de períodos</p>
+        <input type="number"id="txtPeriodos">
+
         <button onclick="calcularValorPresente()">Calcular Valor Presente</button>
         <button onclick="calcularValorFuturo()">Calcular Valor Futuro</button>
         <button onclick="calcularInteresSimple()">Calcular Interés Simple</button>
         <button onclick="calcularInteresCompuesto()">Calcular Interés Compuesto</button>
         <button onclick="calcularAlemana()">Calcular Tabla de Interés Alemana</button>
         <button onclick="calcularFrancesa()">Calcular Tabla de Interés Francesa</button>
+        <button onclick="limpiar()">Limpiar</button>
         
-
-
+        <div id="divMensaje"></div>
         <div id="divTabla"></div>
         </div>
         <script src="mate.js"></script>

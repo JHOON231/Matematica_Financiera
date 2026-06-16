@@ -89,13 +89,41 @@ function calcularValorFuturo(){
     let valorFuturo;
     let contenido;
     let cmpTabla;
+    let cmpMensaje;
 
     capital = parseFloat(document.getElementById("txtCapital").value);
     tasa = parseFloat(document.getElementById("txtTasa").value);
     periodos = parseInt(document.getElementById("txtPeriodos").value);
 
-    tasa = tasa / 100;
+    cmpMensaje = document.getElementById("divMensaje");
 
+    if(isNaN(capital)){
+        cmpMensaje.innerHTML = "Ingrese el capital";
+        return;
+    }
+    if(capital <= 0){
+        cmpMensaje.innerHTML = "El capital debe ser mayor que 0";
+        return;
+    }
+    if(isNaN(tasa)){
+        cmpMensaje.innerHTML = "Ingrese la tasa";
+        return;
+    }
+    if(tasa <= 0){
+        cmpMensaje.innerHTML = "La tasa debe ser mayor que 0";
+        return;
+    }
+    if(isNaN(periodos)){
+        cmpMensaje.innerHTML = "Ingrese el número de períodos";
+        return;
+    }
+    if(periodos <= 0){
+        cmpMensaje.innerHTML = "El número de períodos debe ser mayor que 0";
+        return;
+    }
+    cmpMensaje.innerHTML = "";
+
+    tasa = tasa / 100;
     valorFuturo =
         capital *
         Math.pow(1 + tasa, periodos);
@@ -131,13 +159,41 @@ function calcularValorPresente(){
     let valorPresente;
     let contenido;
     let cmpTabla;
+    let cmpMensaje;
 
     valorFuturo = parseFloat(document.getElementById("txtFuturo").value);
     tasa = parseFloat(document.getElementById("txtTasa").value);
     periodos = parseInt(document.getElementById("txtPeriodos").value);
 
-    tasa = tasa / 100;
+    cmpMensaje = document.getElementById("divMensaje");
+    if(isNaN(valorFuturo)){
+        cmpMensaje.innerHTML = "Ingrese el valor futuro";
+        return;
+    }
+    if(valorFuturo <= 0){
+        cmpMensaje.innerHTML = "El valor futuro debe ser mayor que 0";
+        return;
+    }
+    if(isNaN(tasa)){
+        cmpMensaje.innerHTML = "Ingrese la tasa";
+        return;
+    }
+    if(tasa <= 0){
+        cmpMensaje.innerHTML = "La tasa debe ser mayor que 0";
+        return;
+    }
+    if(isNaN(periodos)){
+        cmpMensaje.innerHTML = "Ingrese el número de períodos";
+        return;
+    }
+    if(periodos <= 0){
+        cmpMensaje.innerHTML = "El número de períodos debe ser mayor que 0";
+        return;
+    }
+    cmpMensaje.innerHTML = "";
 
+
+    tasa = tasa / 100;
     valorPresente =
         valorFuturo /
         Math.pow(1 + tasa, periodos);
@@ -160,4 +216,14 @@ function calcularValorPresente(){
 
     cmpTabla = document.getElementById("divTabla");
     cmpTabla.innerHTML = contenido;
+}
+
+function limpiar(){
+
+    document.getElementById("txtCapital").value = "";
+    document.getElementById("txtFuturo").value = "";
+    document.getElementById("txtTasa").value = "";
+    document.getElementById("txtPeriodos").value = "";
+    document.getElementById("divMensaje").innerHTML = "";
+    document.getElementById("divTabla").innerHTML = "";
 }
