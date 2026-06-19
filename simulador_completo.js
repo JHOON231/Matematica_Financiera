@@ -238,7 +238,7 @@ function calcularCredito() {
         parseFloat(document.getElementById("montoCredito").value);
 
     let plazo =
-        parseFloat(document.getElementById("plazoCredito").value);
+        parseInt(document.getElementById("plazoCredito").value);
 
     let tasa =
         parseFloat(document.getElementById("tasaInteres").value);
@@ -246,64 +246,47 @@ function calcularCredito() {
     let tipo =
         document.getElementById("tipoAmortizacion").value;
 
-    let disponible =
-        calcularDisponible(ingresos, egresos);
-
-    let capacidad =
-        calcularCapacidadPago(disponible);
+    // CAPACIDAD DE PAGO
+    let disponible = calcularDisponible(ingresos, egresos);
+    let capacidad = calcularCapacidadPago(disponible);
 
     document.getElementById("capacidad").innerText =
         "Capacidad de pago: " + capacidad;
 
-    let interes =
-        calcularInteresSimple(monto, tasa, plazo);
-
-    let total =
-        calcularTotalPagar(monto, interes);
+    // INTERÉS SIMPLE ANUAL
+    let interes = monto * (tasa / 100);
+    let totalPagar = monto + interes;
 
     document.getElementById("total").innerText =
-        "Total a pagar: " + total;
+        "Total a pagar: " + totalPagar.toFixed(2);
 
-    let primeraCuota;
+    // TASA MENSUAL SOBRE EL TOTAL
+    let tasaMensual = (tasa / 100) / 12;
 
-    if(tipo == "francesa"){
+    let primeraCuota = 0;
 
-        let tasaMensual =
-            (tasa / 100) / 12;
+    // SISTEMA FRANCÉS — cuota fija real sobre el total
+    if (tipo == "francesa") {
 
-        let meses =
-            plazo;
+        if (tasaMensual === 0) {
+            primeraCuota = totalPagar / plazo;
+        } else {
+            primeraCuota =
+                totalPagar *
+                (tasaMensual * Math.pow(1 + tasaMensual, plazo)) /
+                (Math.pow(1 + tasaMensual, plazo) - 1);
+        }
 
-        primeraCuota =
-            monto *
-            (
-                tasaMensual *
-                Math.pow(1 + tasaMensual, meses)
-            ) /
-            (
-                Math.pow(1 + tasaMensual, meses) - 1
-            );
+    // SISTEMA ALEMÁN — primera cuota = capital fijo + interés del primer mes
+    } else {
 
-    }else{
-
-        let meses =
-            plazo;
-
-        let amortizacionCapital =
-            monto / meses;
-
-        let interesPrimerMes =
-            monto *
-            ((tasa / 100) / 12);
-
-        primeraCuota =
-            amortizacionCapital +
-            interesPrimerMes;
+        let capitalFijo = totalPagar / plazo;
+        let interesPrimerMes = totalPagar * tasaMensual;
+        primeraCuota = capitalFijo + interesPrimerMes;
     }
 
     document.getElementById("cuota").innerText =
-        "Primera Cuota: " +
-        primeraCuota.toFixed(2);
+        "Primera Cuota: " + primeraCuota.toFixed(2);
 }
 
 function aprobar(){
@@ -461,7 +444,7 @@ function buscarCreditosCliente(){
 }
 
 
-function asignarCredito(){
+function asignarCredito() {
 
     let monto =
         parseFloat(document.getElementById("montoCredito").value);
@@ -470,119 +453,106 @@ function asignarCredito(){
         parseFloat(document.getElementById("tasaInteres").value);
 
     let plazo =
-        parseFloat(document.getElementById("plazoCredito").value);
-
-    let cuota = parseFloat(
-        document.getElementById("cuota")
-            .textContent
-            .replace("Primera Cuota: ", "")
-    );
-
-    cuota = Number(cuota.toFixed(2));
+        parseInt(document.getElementById("plazoCredito").value);
 
     let tipoAmortizacion =
         document.getElementById("tipoAmortizacion").value;
 
+    // Recalcular total con interés simple anual
+    let interes = monto * (tasa / 100);
+    let totalPagar = monto + interes;
+
+    let tasaMensual = (tasa / 100) / 12;
+
     let tablaAmortizacion = [];
+    let primeraCuota = 0;
 
     // TABLA FRANCESA
-    if(tipoAmortizacion == "francesa"){
+    if (tipoAmortizacion == "francesa") {
 
-        let saldo = monto;
+        let cuotaFija;
 
-        for(let i = 1; i <= plazo; i++){
+        if (tasaMensual === 0) {
+            cuotaFija = totalPagar / plazo;
+        } else {
+            cuotaFija =
+                totalPagar *
+                (tasaMensual * Math.pow(1 + tasaMensual, plazo)) /
+                (Math.pow(1 + tasaMensual, plazo) - 1);
+        }
 
-            let interes =
-                saldo * (tasa / 100) / 12;
+        primeraCuota = cuotaFija;
 
-            let capital =
-                cuota - interes;
+        let saldo = totalPagar;
 
-            saldo =
-                saldo - capital;
+        for (let i = 1; i <= plazo; i++) {
 
-            if(saldo < 0){
-                saldo = 0;
-            }
+            let interesCuota = saldo * tasaMensual;
+            let capital = cuotaFija - interesCuota;
+            saldo = saldo - capital;
+
+            if (saldo < 0) saldo = 0;
+
+            let fechaCuota = new Date(fechaSistema);
+            fechaCuota.setMonth(fechaCuota.getMonth() + i);
 
             tablaAmortizacion.push({
-
                 numeroCuota: i,
-                capital: capital.toFixed(2),
-                interes: interes.toFixed(2),
-                saldoPendiente: saldo.toFixed(2)
-
+                pago:           cuotaFija.toFixed(2),
+                capital:        capital.toFixed(2),
+                interes:        interesCuota.toFixed(2),
+                saldoPendiente: saldo.toFixed(2),
+                fechaPago:      fechaCuota.toISOString()
             });
         }
 
-    }else{
+    // TABLA ALEMANA
+    } else {
 
-        // TABLA ALEMANA
+        let capitalFijo = totalPagar / plazo;
+        let saldo = totalPagar;
 
-        let saldo = monto;
+        for (let i = 1; i <= plazo; i++) {
 
-        let capitalFijo =
-            monto / plazo;
+            let interesCuota = saldo * tasaMensual;
+            let cuotaAlemana = capitalFijo + interesCuota;
+            saldo = saldo - capitalFijo;
 
-        for(let i = 1; i <= plazo; i++){
+            if (saldo < 0) saldo = 0;
 
-            let interes =
-                saldo * (tasa / 100) / 12;
+            if (i === 1) primeraCuota = cuotaAlemana;
 
-            let cuotaAlemana =
-                capitalFijo + interes;
-
-            saldo =
-                saldo - capitalFijo;
-
-            if(saldo < 0){
-                saldo = 0;
-            }
+            let fechaCuota = new Date(fechaSistema);
+            fechaCuota.setMonth(fechaCuota.getMonth() + i);
 
             tablaAmortizacion.push({
-
                 numeroCuota: i,
-                capital: capitalFijo.toFixed(2),
-                interes: interes.toFixed(2),
-                saldoPendiente: saldo.toFixed(2)
-
+                pago:           cuotaAlemana.toFixed(2),
+                capital:        capitalFijo.toFixed(2),
+                interes:        interesCuota.toFixed(2),
+                saldoPendiente: saldo.toFixed(2),
+                fechaPago:      fechaCuota.toISOString()
             });
         }
     }
 
     let credito = {
-
-        cedula: dato1,
-        nombre: dato2,
-        apellido: dato3,
-
-        monto:
-            parseFloat(document.getElementById("montoCredito").value),
-
-        tasa:
-            parseFloat(document.getElementById("tasaInteres").value),
-
-        plazo:
-            parseFloat(document.getElementById("plazoCredito").value),
-
-        cuota: cuota,
-
-        fechaOtorgamiento:
-            fechaSistema.toISOString(),
-
-        tipoAmortizacion:
-            tipoAmortizacion,
-
-        tablaAmortizacion:
-            tablaAmortizacion
+        cedula:            dato1,
+        nombre:            dato2,
+        apellido:          dato3,
+        monto:             totalPagar,
+        tasa:              tasa,
+        plazo:             plazo,
+        cuota:             Number(primeraCuota.toFixed(2)),
+        fechaOtorgamiento: fechaSistema.toISOString(),
+        tipoAmortizacion:  tipoAmortizacion,
+        tablaAmortizacion: tablaAmortizacion
     };
 
     creditos.push(credito);
-
     pintarCreditos(creditos);
 
     alert("Crédito asignado correctamente");
-
     limpiarCredito();
 }
 
@@ -665,153 +635,102 @@ function calcularCuotasVencidas(fechaOtorgamiento){
     return meses;
 }
 
-function verTablaAmortizacion(indice){
+function verTablaAmortizacion(indice) {
 
     let credito = creditos[indice];
 
-    let monto = credito.monto;
-
-    let tasaMensual =
-        (credito.tasa / 100) / 12;
-
-    let meses =
-        credito.plazo;
+    let totalPagar  = credito.monto;
+    let tasaMensual = (credito.tasa / 100) / 12;
+    let meses       = credito.plazo;
 
     let contenido = `
-
-    <h3>
-        Tabla ${credito.tipoAmortizacion}
-    </h3>
-
+    <h3>Tabla ${credito.tipoAmortizacion}</h3>
     <table>
-
         <thead>
-
             <tr>
-
                 <th>Cuota</th>
                 <th>Pago</th>
                 <th>Capital</th>
                 <th>Interés</th>
                 <th>Saldo</th>
-
+                <th>Fecha de pago</th>
             </tr>
-
         </thead>
-
         <tbody>
     `;
 
-    if(credito.tipoAmortizacion == "francesa"){
+    // FRANCESA
+    if (credito.tipoAmortizacion == "francesa") {
 
-        let cuota =
-            monto *
-            (
-                tasaMensual *
-                Math.pow(1 + tasaMensual, meses)
-            ) /
-            (
-                Math.pow(1 + tasaMensual, meses) - 1
-            );
+        let cuota;
 
-        let saldo = monto;
+        if (tasaMensual === 0) {
+            cuota = totalPagar / meses;
+        } else {
+            cuota =
+                totalPagar *
+                (tasaMensual * Math.pow(1 + tasaMensual, meses)) /
+                (Math.pow(1 + tasaMensual, meses) - 1);
+        }
 
-        for(let i = 1; i <= meses; i++){
+        let saldo = totalPagar;
 
-            let interes =
-                saldo * tasaMensual;
+        for (let i = 1; i <= meses; i++) {
 
-            let capital =
-                cuota - interes;
+            let interes = saldo * tasaMensual;
+            let capital = cuota - interes;
+            saldo = saldo - capital;
 
-            saldo =
-                saldo - capital;
-
-            if(saldo < 0){
-                saldo = 0;
-            }
+            if (saldo < 0) saldo = 0;
 
             let fechaCuota = new Date(credito.fechaOtorgamiento);
+            fechaCuota.setMonth(fechaCuota.getMonth() + i);
 
-            fechaCuota.setMonth(
-                fechaCuota.getMonth() + i
-            );
-
-            let clase = "";
-
-            if(fechaCuota <= fechaSistema){
-                clase = "cuotaPagada";
-            }
-
+            let clase = fechaCuota <= fechaSistema ? "cuotaPagada" : "";
 
             contenido += `
             <tr class="${clase}">
-
                 <td>${i}</td>
                 <td>${cuota.toFixed(2)}</td>
                 <td>${capital.toFixed(2)}</td>
                 <td>${interes.toFixed(2)}</td>
                 <td>${saldo.toFixed(2)}</td>
-
-            </tr>
-            `;
+                <td>${fechaCuota.toLocaleDateString()}</td>
+            </tr>`;
         }
 
-    }else{
+    // ALEMANA
+    } else {
 
-        let amortizacion =
-            monto / meses;
+        let capitalFijo = totalPagar / meses;
+        let saldo       = totalPagar;
 
-        let saldo = monto;
+        for (let i = 1; i <= meses; i++) {
 
-        for(let i = 1; i <= meses; i++){
+            let interes = saldo * tasaMensual;
+            let cuota   = capitalFijo + interes;
+            saldo       = saldo - capitalFijo;
 
-            let interes =
-                saldo * tasaMensual;
-
-            let cuota =
-                amortizacion + interes;
-
-            saldo =
-                saldo - amortizacion;
-
-            if(saldo < 0){
-                saldo = 0;
-            }
+            if (saldo < 0) saldo = 0;
 
             let fechaCuota = new Date(credito.fechaOtorgamiento);
+            fechaCuota.setMonth(fechaCuota.getMonth() + i);
 
-            fechaCuota.setMonth(
-                fechaCuota.getMonth() + i
-            );
-
-            let clase = "";
-
-            if(fechaCuota <= fechaSistema){
-                clase = "cuotaPagada";
-            }
-
+            let clase = fechaCuota <= fechaSistema ? "cuotaPagada" : "";
 
             contenido += `
             <tr class="${clase}">
-
                 <td>${i}</td>
                 <td>${cuota.toFixed(2)}</td>
-                <td>${amortizacion.toFixed(2)}</td>
+                <td>${capitalFijo.toFixed(2)}</td>
                 <td>${interes.toFixed(2)}</td>
                 <td>${saldo.toFixed(2)}</td>
-
-            </tr>
-            `;
+                <td>${fechaCuota.toLocaleDateString()}</td>
+            </tr>`;
         }
     }
 
-    contenido += `
-        </tbody>
-    </table>
-    `;
+    contenido += `</tbody></table>`;
 
-    document.getElementById(
-        "detalleAmortizacion"
-    ).innerHTML = contenido;
+    document.getElementById("detalleAmortizacion").innerHTML = contenido;
 }
