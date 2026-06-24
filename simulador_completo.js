@@ -365,10 +365,9 @@ function pintarCreditos(arreglo){
             calcularCuotasVencidas(
                 credito.fechaOtorgamiento
             );
-
-        if(cuotasPagadas > credito.plazo){
-            cuotasPagadas = credito.plazo;
-        }
+            if(cuotasPagadas > credito.plazo){
+                cuotasPagadas = credito.plazo;
+            }
 
         let cuotasPendientes =
             credito.plazo - cuotasPagadas;
@@ -398,12 +397,11 @@ function pintarCreditos(arreglo){
         </td>
 
         <td>${cuotasPagadas}</td>
+            <td>${cuotasPendientes}</td>
 
-        <td>${cuotasPendientes}</td>
-
-        <td>
+            <td>
             <button onclick="verTablaAmortizacion(${i})">
-                Ver Tabla
+                Ver tabla
             </button>
             
             <button onclick="eliminarCredito(${i})">
@@ -654,6 +652,7 @@ function verTablaAmortizacion(indice) {
                 <th>Interés</th>
                 <th>Saldo</th>
                 <th>Fecha de pago</th>
+                <th>Estado</th>
             </tr>
         </thead>
         <tbody>
@@ -688,6 +687,12 @@ function verTablaAmortizacion(indice) {
 
             let clase = fechaCuota <= fechaSistema ? "cuotaPagada" : "";
 
+            // Determinar el estado de la cuota en la tabla francesa
+            let estado = "";
+            if(fechaCuota <= fechaSistema){
+                estado = "Atrasado";
+            }
+
             contenido += `
             <tr class="${clase}">
                 <td>${i}</td>
@@ -696,6 +701,7 @@ function verTablaAmortizacion(indice) {
                 <td>${interes.toFixed(2)}</td>
                 <td>${saldo.toFixed(2)}</td>
                 <td>${fechaCuota.toLocaleDateString()}</td>
+                <td>${estado}</td>
             </tr>`;
         }
 
@@ -718,6 +724,12 @@ function verTablaAmortizacion(indice) {
 
             let clase = fechaCuota <= fechaSistema ? "cuotaPagada" : "";
 
+            // Determinar el estado de la cuota en la tabla alemana
+            let estado = "";
+            if(fechaCuota <= fechaSistema){
+                estado = "Atrasado";
+            }
+
             contenido += `
             <tr class="${clase}">
                 <td>${i}</td>
@@ -726,6 +738,7 @@ function verTablaAmortizacion(indice) {
                 <td>${interes.toFixed(2)}</td>
                 <td>${saldo.toFixed(2)}</td>
                 <td>${fechaCuota.toLocaleDateString()}</td>
+                <td>${estado}</td>
             </tr>`;
         }
     }
