@@ -361,16 +361,16 @@ function pintarCreditos(arreglo){
 
         let credito = arreglo[i];
 
-        let cuotasPagadas =
+        let cuotasPasadas =
             calcularCuotasVencidas(
                 credito.fechaOtorgamiento
             );
-            if(cuotasPagadas > credito.plazo){
-                cuotasPagadas = credito.plazo;
+            if(cuotasPasadas > credito.plazo){
+                cuotasPasadas = credito.plazo;
             }
 
         let cuotasPendientes =
-            credito.plazo - cuotasPagadas;
+            credito.plazo - cuotasPasadas;
 
         tabla.innerHTML += `
 
@@ -396,7 +396,7 @@ function pintarCreditos(arreglo){
             ).toLocaleDateString()}
         </td>
 
-        <td>${cuotasPagadas}</td>
+        <td>${cuotasPasadas}</td>
             <td>${cuotasPendientes}</td>
 
             <td>
@@ -544,7 +544,9 @@ function asignarCredito() {
         cuota:             Number(primeraCuota.toFixed(2)),
         fechaOtorgamiento: fechaSistema.toISOString(),
         tipoAmortizacion:  tipoAmortizacion,
-        tablaAmortizacion: tablaAmortizacion
+        tablaAmortizacion: tablaAmortizacion,
+        pagos: [],
+        fechasPago: []
     };
 
     creditos.push(credito);
@@ -591,23 +593,22 @@ function cambiarFechaSistema(){
     let nuevaFecha =
         document.getElementById("nuevaFecha").value;
 
-
     if(nuevaFecha == ""){
         alert("Seleccione una fecha");
         return;
     }
 
+    let partes = nuevaFecha.split("-");
 
-    fechaSistema = new Date(nuevaFecha);
-
+    fechaSistema = new Date(
+        partes[0],
+        partes[1] - 1,
+        partes[2]
+    );
 
     mostrarFechaSistema();
 
-
-    // Actualiza el historial con la nueva fecha
     pintarCreditos(creditos);
-
-
 }
 
 mostrarFechaSistema();
@@ -653,6 +654,8 @@ function verTablaAmortizacion(indice) {
                 <th>Saldo</th>
                 <th>Fecha de pago</th>
                 <th>Estado</th>
+                <th>Acción</th>
+                <th>Fecha de cancelación</th>
             </tr>
         </thead>
         <tbody>
@@ -685,24 +688,71 @@ function verTablaAmortizacion(indice) {
             let fechaCuota = new Date(credito.fechaOtorgamiento);
             fechaCuota.setMonth(fechaCuota.getMonth() + i);
 
-            let clase = fechaCuota <= fechaSistema ? "cuotaPagada" : "";
+            let clase = fechaCuota <= fechaSistema ? "cuotasPasadas" : "";
 
             // Determinar el estado de la cuota en la tabla francesa
             let estado = "";
+
             if(fechaCuota <= fechaSistema){
                 estado = "Atrasado";
             }
 
+            let pagada = false;
+
+            let fechaCancelacion = "";
+
+            if(credito.pagos){
+                pagada = credito.pagos.includes(i);
+            }
+
+            if(pagada){
+
+                estado = "Pagado";
+
+                let pago = credito.fechasPago.find(
+                    x => x.cuota == i
+                );
+
+                if(pago){
+                    fechaCancelacion = pago.fecha;
+                }
+            }
+
             contenido += `
             <tr class="${clase}">
+
                 <td>${i}</td>
+
                 <td>${cuota.toFixed(2)}</td>
+
                 <td>${capital.toFixed(2)}</td>
+
                 <td>${interes.toFixed(2)}</td>
+
                 <td>${saldo.toFixed(2)}</td>
+
                 <td>${fechaCuota.toLocaleDateString()}</td>
+
                 <td>${estado}</td>
-            </tr>`;
+
+                <td>
+
+                    ${
+                        pagada
+                        ?
+                        "✔"
+                        :
+                        `<button onclick="pagarCuota(${indice},${i})">
+                            Pagar
+                        </button>`
+                    }
+
+                </td>
+
+                <td>${fechaCancelacion}</td>
+
+            </tr>
+            `;
         }
 
     // ALEMANA
@@ -722,28 +772,119 @@ function verTablaAmortizacion(indice) {
             let fechaCuota = new Date(credito.fechaOtorgamiento);
             fechaCuota.setMonth(fechaCuota.getMonth() + i);
 
-            let clase = fechaCuota <= fechaSistema ? "cuotaPagada" : "";
+            let clase = fechaCuota <= fechaSistema ? "cuotasPasadas" : "";
 
             // Determinar el estado de la cuota en la tabla alemana
             let estado = "";
+
             if(fechaCuota <= fechaSistema){
                 estado = "Atrasado";
             }
 
+            let pagada = false;
+
+            let fechaCancelacion = "";
+
+            if(credito.pagos){
+                pagada = credito.pagos.includes(i);
+            }
+
+            if(pagada){
+
+                estado = "Pagado";
+
+                let pago = credito.fechasPago.find(
+                    x => x.cuota == i
+                );
+
+                if(pago){
+                    fechaCancelacion = pago.fecha;
+                }
+            }
             contenido += `
             <tr class="${clase}">
+
                 <td>${i}</td>
+
                 <td>${cuota.toFixed(2)}</td>
+
                 <td>${capitalFijo.toFixed(2)}</td>
+
                 <td>${interes.toFixed(2)}</td>
+
                 <td>${saldo.toFixed(2)}</td>
+
                 <td>${fechaCuota.toLocaleDateString()}</td>
+
                 <td>${estado}</td>
-            </tr>`;
+
+                <td>
+
+                    ${
+                        pagada
+                        ?
+                        "✔"
+                        :
+                        `<button onclick="pagarCuota(${indice},${i})">
+                            Pagar
+                        </button>`
+                    }
+
+                </td>
+
+                <td>${fechaCancelacion}</td>
+
+            </tr>
+            `;
         }
     }
 
     contenido += `</tbody></table>`;
 
     document.getElementById("detalleAmortizacion").innerHTML = contenido;
+}
+
+////
+
+function pagarCuota(indiceCredito, numeroCuota){
+
+    let credito = creditos[indiceCredito];
+
+    // Si aún no existen los arreglos
+    if(!credito.pagos){
+
+        credito.pagos = [];
+
+    }
+
+    if(!credito.fechasPago){
+
+        credito.fechasPago = [];
+
+    }
+
+    // Verifica si ya fue pagada
+    let posicion =
+        credito.pagos.indexOf(numeroCuota);
+
+    if(posicion != -1){
+
+        alert("Esta cuota ya fue cancelada.");
+
+        return;
+    }
+
+    credito.pagos.push(numeroCuota);
+
+    credito.fechasPago.push({
+
+        cuota: numeroCuota,
+
+        fecha: fechaSistema.toLocaleDateString()
+
+    });
+
+    verTablaAmortizacion(indiceCredito);
+
+    pintarCreditos(creditos);
 }
